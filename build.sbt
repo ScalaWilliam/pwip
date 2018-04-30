@@ -12,8 +12,8 @@ libraryDependencies ++= Seq(
   "org.eclipse.jgit" % "org.eclipse.jgit" % "4.11.0.201803080745-r",
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
   "org.seleniumhq.selenium" % "selenium-java" % "3.11.0" % Test,
-  "org.seleniumhq.selenium" % "selenium-htmlunit-driver" % "2.52.0" % Test,
-  // todo take screenshots with Firefox as part of documentation or something
+  "org.seleniumhq.selenium" % "htmlunit-driver" % "2.30.0" % Test,
+// todo take screenshots with Firefox as part of documentation or something
   // so we can have automated docs :-D
   "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.11.0" % Test
 )
