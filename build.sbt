@@ -1,5 +1,7 @@
 scalaVersion := "2.12.6"
 
+name := "pwip"
+
 enablePlugins(PlayScala)
 enablePlugins(DockerPlugin)
 
