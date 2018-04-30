@@ -1,6 +1,6 @@
 # PWIP
 > The best Wiki ever
 
-Git-based. Flexible.
-
-## Deployment
+- Git
+- WebSub
+- JavaScript
