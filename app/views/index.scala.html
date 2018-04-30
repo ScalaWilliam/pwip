@@ -1,8 +1,16 @@
+@(
+        title: String,
+        content: Html
+)
 <!doctype html>
-<html><head><title>Yay</title></head>
+<html><head><title>@title</title></head>
     <body>
         <form method="post" action="/setup" id="form">
             <button type="submit" name="setup" id="setup">Setup</button>
         </form>
+
+        <div id="content">
+            @content
+        </div>
     </body>
 </html>

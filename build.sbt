@@ -15,5 +15,6 @@ libraryDependencies ++= Seq(
   "org.seleniumhq.selenium" % "htmlunit-driver" % "2.30.0" % Test,
 // todo take screenshots with Firefox as part of documentation or something
   // so we can have automated docs :-D
-  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.11.0" % Test
+  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.11.0" % Test,
+  "org.jsoup" % "jsoup" % "1.11.3"
 )
