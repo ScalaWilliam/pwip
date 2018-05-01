@@ -40,3 +40,12 @@ $ docker run -e PLAY_HTTP_SECRET_KEY=secret-key -p 8080:9000 -it pwip
 $ curl http://127.0.0.1:8080/ 
 ```
 
+## Using with real Git repository
+
+```
+$ mkdir sample-repo
+$ cd sample-repo
+$ git init
+$ export GIT_DIR=$(pwd)
+$ # run with environment option: GIT_DIR=$GIT_DIR
+```
