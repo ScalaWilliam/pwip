@@ -57,6 +57,10 @@ class SirdComponents(context: Context)
         val targetUrl = if (page == "index") "/" else s"/$page"
         SeeOther(targetUrl)
       }
+    case GET(p"/$path*") if pages.contains(path) =>
+      Action {
+        renderPage(path, pages(path))
+      }
     case GET(p"/$path*")
         if SirdComponents.validPath.findFirstIn(path).isDefined =>
       Action {
