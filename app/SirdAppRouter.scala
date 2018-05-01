@@ -11,15 +11,13 @@ import scala.util.matching.Regex
 
 class SirdAppLoader extends ApplicationLoader {
   def load(context: Context): Application = {
-    new SirdComponents(context).application
+    new SirdComponents(context, PageStore.fromMap(Map.empty)).application
   }
 }
 
-class SirdComponents(context: Context)
+class SirdComponents(context: Context, pageStore: PageStore)
     extends BuiltInComponentsFromContext(context)
     with NoHttpFiltersComponents {
-
-  private var pages: Map[String, String] = Map.empty
 
   def renderPage(id: String, markdown: String): Result = {
     val html = {
@@ -43,33 +41,33 @@ class SirdComponents(context: Context)
   }
 
   lazy val router: Router = Router.from {
-    case GET(p"/") if !pages.contains("index") =>
+    case GET(p"/") if !pageStore.contains("index") =>
       Action {
         Ok(views.html.create_not_found(pageId = "index"))
       }
-    case GET(p"/") if pages.contains("index") =>
+    case GET(p"/") if pageStore.contains("index") =>
       Action {
-        renderPage("index", pages("index"))
+        renderPage("index", pageStore.get("index").get)
       }
     case POST(p"/create-page" ? q"page-id=$page") =>
       Action(parse.form(SirdComponents.pushForm)) { request =>
-        pages = pages + (page -> request.body.content)
+        pageStore.put(page, request.body.content)
         val targetUrl = if (page == "index") "/" else s"/$page"
         SeeOther(targetUrl)
       }
-    case GET(p"/edit-page" ? q"page-id=$page") if pages.contains(page) =>
+    case GET(p"/edit-page" ? q"page-id=$page") if pageStore.contains(page) =>
       Action {
-        Ok(views.html.edit(page, pages(page)))
+        Ok(views.html.edit(page, pageStore.get(page).get))
       }
     case POST(p"/edit-page" ? q"page-id=$page") =>
       Action(parse.form(SirdComponents.pushForm)) { request =>
-        pages = pages + (page -> request.body.content)
+        pageStore.put(page, request.body.content)
         val targetUrl = if (page == "index") "/" else s"/$page"
         SeeOther(targetUrl)
       }
-    case GET(p"/$path*") if pages.contains(path) =>
+    case GET(p"/$path*") if pageStore.contains(path) =>
       Action {
-        renderPage(path, pages(path))
+        renderPage(path, pageStore.get(path).get)
       }
     case GET(p"/$path*")
         if SirdComponents.validPath.findFirstIn(path).isDefined =>
