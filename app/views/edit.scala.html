@@ -1,6 +1,10 @@
 @(pageId: String, content: String)
 <!doctype html>
-<html><head><title>Editing @pageId</title></head>
+<html><head><title>Editing @pageId</title>
+
+    <link rel="stylesheet" type="text/css" href="/assets/default.css"/>
+
+</head>
     <body>
         <h1>Editing page @pageId</h1>
         <form method="post" action="/edit-page?page-id=@pageId" id="form">

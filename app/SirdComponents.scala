@@ -4,6 +4,7 @@ import play.api.mvc._
 import play.api.routing._
 import play.api.routing.sird._
 import Results._
+import _root_.controllers.AssetsComponents
 import org.jsoup.Jsoup
 import play.twirl.api.Html
 
@@ -12,7 +13,8 @@ import scala.util.matching.Regex
 
 class SirdComponents(context: Context, pageStore: PageStore)
     extends BuiltInComponentsFromContext(context)
-    with NoHttpFiltersComponents {
+    with NoHttpFiltersComponents
+    with AssetsComponents {
 
   applicationLifecycle.addStopHook(() => Future.successful(pageStore.close()))
 
@@ -71,6 +73,8 @@ class SirdComponents(context: Context, pageStore: PageStore)
       Action {
         NotFound(views.html.create_not_found(pageId = path))
       }
+    case GET(p"/assets/$path*") =>
+      assets.at(path = "/public", path)
   }
 }
 
