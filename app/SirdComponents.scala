@@ -10,12 +10,6 @@ import play.twirl.api.Html
 import scala.concurrent.Future
 import scala.util.matching.Regex
 
-class SirdAppLoader extends ApplicationLoader {
-  def load(context: Context): Application = {
-    new SirdComponents(context, PageStore.fromMap(Map.empty)).application
-  }
-}
-
 class SirdComponents(context: Context, pageStore: PageStore)
     extends BuiltInComponentsFromContext(context)
     with NoHttpFiltersComponents {
