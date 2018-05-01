@@ -6,7 +6,6 @@ class InMemoryIntegrationSpec
     with FakeApplicationFactory {
   override def fakeApplication: Application = {
     val context = ApplicationLoader.createContext(Environment.simple())
-    val loader = new SirdAppLoader()
-    loader.load(context)
+    new SirdComponents(context, PageStore.fromMap(Map.empty)).application
   }
 }
