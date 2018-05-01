@@ -4,6 +4,7 @@
 - Git
 - WebSub
 - JavaScript
+- IndieAuth
 
 # Usage
 We use [SBT](https://www.scalawilliam.com/essential-sbt/).

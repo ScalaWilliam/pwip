@@ -12,7 +12,18 @@ lazy val `page-store` = project
     libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.11.0.201803080745-r",
   )
 
+lazy val `indie-auth` = project
+  .settings(
+    libraryDependencies ++= Seq(
+      playCore,
+      ws,
+      json,
+    )
+  )
+
 dependsOn(`page-store` % "test->test;compile->compile")
+
+dependsOn(`indie-auth`)
 
 libraryDependencies ++= Seq(
   filters,
