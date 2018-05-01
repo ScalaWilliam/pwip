@@ -35,7 +35,6 @@ trait IntegrationSpec
       textArea("content").value = "# Index\nTest"
       submit()
       info("once we submit we should see some rendered page")
-      info(s"${currentUrl}")
       pageTitle shouldBe "Index"
       cssSelector("#content").findElement.value.text shouldBe "Index\nTest"
     }
