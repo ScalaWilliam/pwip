@@ -6,13 +6,17 @@ trait PageStoreSpec {
 
   def pageStoreBuilder: PageStore
 
-  "it doesn't have stuff by default" in {
+  def withPageStore[T](f: PageStore => T): T = {
     val pageStore = pageStoreBuilder
+    try f(pageStore)
+    finally pageStore.close()
+  }
+
+  "it doesn't have stuff by default" in withPageStore { pageStore =>
     pageStore.get("something") shouldBe empty
     assert(!pageStore.contains("something"))
   }
-  "it sets something and retrieves it" in {
-    val pageStore = pageStoreBuilder
+  "it sets something and retrieves it" in withPageStore { pageStore =>
     val key = "A"
     val value = "B"
     pageStore.put(key, value)
