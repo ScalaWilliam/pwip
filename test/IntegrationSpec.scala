@@ -3,11 +3,11 @@ import org.scalatest.Matchers._
 import org.scalatest.selenium.Page
 import org.scalatestplus.play._
 
-class IntegrationSpec
+trait IntegrationSpec
     extends PlaySpec
     with BaseOneServerPerSuite
-    with TheApplicationFactory
     with OneBrowserPerTest
+    with FakeApplicationFactory
     with HtmlUnitFactory {
 
   def root = s"""http://localhost:$port"""

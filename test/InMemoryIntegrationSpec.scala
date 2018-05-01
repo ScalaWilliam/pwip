@@ -1,7 +1,9 @@
 import org.scalatestplus.play.FakeApplicationFactory
 import play.api.{Application, ApplicationLoader, Environment}
 
-trait TheApplicationFactory extends FakeApplicationFactory {
+class InMemoryIntegrationSpec
+    extends IntegrationSpec
+    with FakeApplicationFactory {
   override def fakeApplication: Application = {
     val context = ApplicationLoader.createContext(Environment.simple())
     val loader = new SirdAppLoader()
