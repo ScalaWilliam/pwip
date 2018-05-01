@@ -10,7 +10,7 @@ We use [SBT](https://www.scalawilliam.com/essential-sbt/).
 
 ## Development
 ```
-$ sbt IntegrationTest/test
+$ sbt test
 $ sbt run
 ```
 
