@@ -57,6 +57,16 @@ class SirdComponents(context: Context)
         val targetUrl = if (page == "index") "/" else s"/$page"
         SeeOther(targetUrl)
       }
+    case GET(p"/edit-page" ? q"page-id=$page") if pages.contains(page) =>
+      Action {
+        Ok(views.html.edit(page, pages(page)))
+      }
+    case POST(p"/edit-page" ? q"page-id=$page") =>
+      Action(parse.form(SirdComponents.pushForm)) { request =>
+        pages = pages + (page -> request.body.content)
+        val targetUrl = if (page == "index") "/" else s"/$page"
+        SeeOther(targetUrl)
+      }
     case GET(p"/$path*") if pages.contains(path) =>
       Action {
         renderPage(path, pages(path))

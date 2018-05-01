@@ -53,6 +53,20 @@ class IntegrationSpec
       pageTitle shouldBe "New stuff"
       cssSelector("#content").findElement.value.text shouldBe "New stuff\nTest it!"
     }
+    "Edit the customly created page" in {
+      go to new Page {
+        override val url: String = s"${root}/new-path"
+      }
+      click on cssSelector("a[rel='edit']")
+      pageTitle shouldBe "Editing new-path"
+      click on name("content")
+      textArea("content").value shouldBe "# New stuff\nTest it!"
+      textArea("content").value = "# New stuff\nTest it all!"
+      submit()
+      currentUrl.replaceAllLiterally(root, "") shouldBe "/new-path"
+      pageTitle shouldBe "New stuff"
+      cssSelector("#content").findElement.value.text shouldBe "New stuff\nTest it all!"
+    }
   }
 
   implicit override lazy val webDriver: WebDriver =

@@ -1,9 +1,12 @@
+@(pageId: String, content: String)
 <!doctype html>
-<html><head><title>Editing</title></head>
+<html><head><title>Editing @pageId</title></head>
     <body>
-        <form method="post" action="/save" id="form">
-            <textarea id="edit-box" name="content">Sample</textarea>
-            <button type="submit" name="setup" id="setup">Setup</button>
+        <h1>Editing page @pageId</h1>
+        <form method="post" action="/edit-page?page-id=@pageId" id="form">
+            <p>Page id: <code>@pageId</code></p>
+            <textarea id="edit-box" name="content">@content</textarea>
+            <button type="submit">Update</button>
         </form>
     </body>
 </html>
