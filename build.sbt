@@ -12,7 +12,7 @@ lazy val `page-store` = project
     libraryDependencies += "org.eclipse.jgit" % "org.eclipse.jgit" % "4.11.0.201803080745-r",
   )
 
-dependsOn(`page-store`)
+dependsOn(`page-store` % "test->test;compile->compile")
 
 libraryDependencies ++= Seq(
   filters,

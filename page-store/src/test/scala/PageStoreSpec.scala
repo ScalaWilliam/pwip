@@ -13,8 +13,8 @@ trait PageStoreSpec {
   }
 
   "it doesn't have stuff by default" in withPageStore { pageStore =>
-    pageStore.get("something") shouldBe empty
     assert(!pageStore.contains("something"))
+    pageStore.get("something") shouldBe empty
   }
   "it sets something and retrieves it" in withPageStore { pageStore =>
     val key = "A"

@@ -7,6 +7,7 @@ import Results._
 import org.jsoup.Jsoup
 import play.twirl.api.Html
 
+import scala.concurrent.Future
 import scala.util.matching.Regex
 
 class SirdAppLoader extends ApplicationLoader {
@@ -18,6 +19,8 @@ class SirdAppLoader extends ApplicationLoader {
 class SirdComponents(context: Context, pageStore: PageStore)
     extends BuiltInComponentsFromContext(context)
     with NoHttpFiltersComponents {
+
+  applicationLifecycle.addStopHook(() => Future.successful(pageStore.close()))
 
   def renderPage(id: String, markdown: String): Result = {
     val html = {
