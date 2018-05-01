@@ -17,19 +17,25 @@ class IntegrationSpec
       go to new Page {
         override val url: String = s"${root}/random-path"
       }
-      pageSource should include("Not Found")
+      pageSource should include("not found")
+      pageSource should include("submit")
     }
-    "create initial page" in {
+    "not be creatable for /random-;path (bad URL)" in {
+      go to new Page {
+        override val url: String = s"${root}/random-;path"
+      }
+      pageSource should include("Not Found")
+      pageSource should not include "submit"
+    }
+    "Create an intial page" in {
       go to root
       info("we expect the page to not be created initially")
-      info("we click the set up button which will take us to the edit page")
-      click on name("setup")
-      pageTitle should be("Editing")
-      cssSelector("#edit-box").findAllElements mustNot be(empty)
+      pageSource should include("not found")
       click on name("content")
       textArea("content").value = "# Index\nTest"
       submit()
-      info(s"once we submit we should see some rendered page")
+      info("once we submit we should see some rendered page")
+      info(s"${currentUrl}")
       pageTitle shouldBe "Index"
       cssSelector("#content").findElement.value.text shouldBe "Index\nTest"
     }
