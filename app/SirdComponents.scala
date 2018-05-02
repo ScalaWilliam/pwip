@@ -10,6 +10,7 @@ import play.twirl.api.Html
 
 import scala.concurrent.Future
 import scala.util.matching.Regex
+import SirdComponents._
 
 class SirdComponents(context: Context, pageStore: PageStore)
     extends BuiltInComponentsFromContext(context)
@@ -44,19 +45,19 @@ class SirdComponents(context: Context, pageStore: PageStore)
       Action {
         Ok(views.html.list(pageStore.list()))
       }
-    case GET(p"/") if !pageStore.contains("index") =>
+    case GET(p"/") if !pageStore.contains(IndexPageName) =>
       Action {
-        Ok(views.html.create_not_found(pageId = "index"))
+        Ok(views.html.create_not_found(pageId = IndexPageName))
       }
-    case GET(p"/") if pageStore.contains("index") =>
+    case GET(p"/") if pageStore.contains(IndexPageName) =>
       Action {
-        renderPage("index", pageStore.get("index").get)
+        renderPage(IndexPageName, pageStore.get(IndexPageName).get)
       }
     case POST(p"/create-page" ? q"page-id=$page")
         if SirdComponents.validPath.findFirstIn(page).isDefined =>
       Action(parse.form(SirdComponents.pushForm)) { request =>
         pageStore.put(page, request.body.content)
-        val targetUrl = if (page == "index") "/" else s"/$page"
+        val targetUrl = if (page == IndexPageName) "/" else s"/$page"
         SeeOther(targetUrl)
       }
     case GET(p"/edit-page" ? q"page-id=$page") if pageStore.contains(page) =>
@@ -66,7 +67,7 @@ class SirdComponents(context: Context, pageStore: PageStore)
     case POST(p"/edit-page" ? q"page-id=$page") =>
       Action(parse.form(SirdComponents.pushForm)) { request =>
         pageStore.put(page, request.body.content)
-        val targetUrl = if (page == "index") "/" else s"/$page"
+        val targetUrl = if (page == IndexPageName) "/" else s"/$page"
         SeeOther(targetUrl)
       }
     case GET(p"/$path*") if pageStore.contains(path) =>
@@ -84,6 +85,8 @@ class SirdComponents(context: Context, pageStore: PageStore)
 }
 
 object SirdComponents {
+
+  val IndexPageName = "README"
   val validPath: Regex = "^(?U)\\p{IsAlphabetic}[\\p{Alnum}_-]+$".r
   import play.api.data._
   import play.api.data.Forms._
