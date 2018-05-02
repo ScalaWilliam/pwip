@@ -1,15 +1,10 @@
 @(pageId: String)
-<!doctype html>
-<html><head><title>Page not found!</title>
-<link rel="stylesheet" type="text/css" href="/assets/default.css"/>
-</head>
-    <body>
-        <h1>Page not found</h1>
-        <p>Page was not found, but it is possible to create_not_found it :-)</p>
-        <form method="post" action="/create-page?page-id=@pageId" id="form">
-            <p>Page id: <code>@pageId</code></p>
-            <textarea id="edit-box" name="content">Sample</textarea>
-            <button type="submit" name="create" id="create">Create</button>
-        </form>
-    </body>
-</html>
+@common("Page not found!") {
+    <h1>Page not found</h1>
+    <p>Page was not found, but it is possible to create_not_found it :-)</p>
+    <form method="post" action="/create-page?page-id=@pageId" id="form">
+        <p>Page id: <code>@pageId</code></p>
+        <textarea id="edit-box" name="content">Sample</textarea>
+        <button type="submit" name="create" id="create">Create</button>
+    </form>
+}

@@ -1,16 +1,11 @@
 @(
-pageId: String,
+        pageId: String,
         title: String,
         content: Html
 )
-<!doctype html>
-<html><head><title>@title</title>
-    <link rel="stylesheet" type="text/css" href="/assets/default.css"/>
-</head>
-    <body>
+    @common(title) {
         <p><a href="/edit-page?page-id=@pageId" rel="edit">Edit page</a></p>
         <div id="content">
-            @content
+        @content
         </div>
-    </body>
-</html>
+    }
