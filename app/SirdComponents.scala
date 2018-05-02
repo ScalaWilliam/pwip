@@ -52,7 +52,8 @@ class SirdComponents(context: Context, pageStore: PageStore)
       Action {
         renderPage("index", pageStore.get("index").get)
       }
-    case POST(p"/create-page" ? q"page-id=$page") =>
+    case POST(p"/create-page" ? q"page-id=$page")
+        if SirdComponents.validPath.findFirstIn(page).isDefined =>
       Action(parse.form(SirdComponents.pushForm)) { request =>
         pageStore.put(page, request.body.content)
         val targetUrl = if (page == "index") "/" else s"/$page"
