@@ -1,0 +1,9 @@
+@(pages: Set[String])
+@common(s"List of pages") {
+    <ul>
+        @pages.map { page =>
+
+<li><a href="/@page">@page</a></li>
+        }
+    </ul>
+}

@@ -26,4 +26,12 @@ trait PageStoreSpec {
     pageStore.get(key).value shouldBe value
     pageStore.list() should contain only (key)
   }
+  "it sets multiple things and retrieves a list" in withPageStore { pageStore =>
+    val key = "A"
+    val key2 = "C"
+    val value = "B"
+    pageStore.put(key, value)
+    pageStore.put(key2, value)
+    pageStore.list() should contain only (key, key2)
+  }
 }

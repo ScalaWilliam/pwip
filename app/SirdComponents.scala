@@ -40,6 +40,10 @@ class SirdComponents(context: Context, pageStore: PageStore)
   }
 
   lazy val router: Router = Router.from {
+    case GET(p"/list") =>
+      Action {
+        Ok(views.html.list(pageStore.list()))
+      }
     case GET(p"/") if !pageStore.contains("index") =>
       Action {
         Ok(views.html.create_not_found(pageId = "index"))
