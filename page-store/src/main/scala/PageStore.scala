@@ -1,6 +1,7 @@
 trait PageStore {
   def get(name: String): Option[String]
   def contains(name: String): Boolean
+  def list(): Set[String]
   def put(name: String, content: String): Unit
   def close(): Unit
 }
@@ -16,5 +17,7 @@ object PageStore {
       map = map.updated(name, content)
 
     override def close(): Unit = ()
+
+    override def list(): Set[String] = map.keySet
   }
 }

@@ -15,6 +15,7 @@ trait PageStoreSpec {
   "it doesn't have stuff by default" in withPageStore { pageStore =>
     assert(!pageStore.contains("something"))
     pageStore.get("something") shouldBe empty
+    pageStore.list() shouldBe empty
   }
   "it sets something and retrieves it" in withPageStore { pageStore =>
     val key = "A"
@@ -23,5 +24,6 @@ trait PageStoreSpec {
     assert(pageStore.contains(key))
     pageStore.put(key, value)
     pageStore.get(key).value shouldBe value
+    pageStore.list() should contain only (key)
   }
 }
